@@ -5,10 +5,10 @@ import { v4 as uuid } from "uuid";
 import List from "../List/list.jsx";
 import { Button, Pagination } from "@mantine/core";
 
-import { SettingsContext } from "../context/SettingsProvider.jsx";
+import { SettingsProvider } from "../context/SettingsProvider.jsx";
 
 const ToDo = () => {
-  const settings = useContext(SettingsContext);
+  const settings = useContext(SettingsProvider);
   const [currentPage, setCurrentPage] = useState(1);
   // const settings = useContext(SettingsProvider);
 

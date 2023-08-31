@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import "./list.scss";
-import { SettingsContext } from "../context/SettingsProvider.jsx";
+import { SettingsProvider } from "../context/SettingsProvider.jsx";
 import { Paper, Text, Group, CloseButton, Checkbox } from "@mantine/core";
 function List({ items, currentPage, deleteItem, toggleComplete }) {
-  const settings = useContext(SettingsContext);
+  const settings = useContext(SettingsProvider);
 
   settings.hideCompleted? items = items.filter((item) => !item.complete) : ''
 
