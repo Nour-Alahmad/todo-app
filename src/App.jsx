@@ -1,19 +1,23 @@
-import React from 'react';
 
-import ToDo from './components/todo/todo.jsx';
-import Settings  from './components/context/SettingsProvider.jsx'
+import { Route, Routes, } from "react-router-dom";
 
+import { SettingsProvider } from './components/context/SettingsProvider';
+import ToDo from './components/todo/todo'; // Your existing ToDo component
+import SettingsPage from './components/settingPage/settings';
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <>
-       <Settings>
-         <ToDo />
-      </Settings>
-      </>
-     
-     
-    );
-  }
+function App() {
+  return (
+    <SettingsProvider>
+        <Routes>
+            <Route path='/' element={<ToDo />} />
+       
+            <Route path='/settings' element={<SettingsPage />} />
+       
+
+       
+      </Routes>
+    </SettingsProvider>
+  );
 }
+
+export default App;

@@ -5,17 +5,38 @@ import { v4 as uuid } from "uuid";
 import List from "../List/list.jsx";
 import { Button, Pagination } from "@mantine/core";
 
-import { SettingsContext } from "../context/SettingsProvider.jsx";
+// import { SettingsProvider } from "../context/SettingsProvider.jsx";
+import { useSettings } from '../context/SettingsProvider';
+
 
 const ToDo = () => {
-  const settings = useContext(SettingsContext);
+  // const settings = useContext(SettingsProvider);
+  const { settings, updateSettings } = useSettings();
+
+
+
   const [currentPage, setCurrentPage] = useState(1);
   // const settings = useContext(SettingsProvider);
 
   const [defaultValues] = useState({
     difficulty: 4,
   });
+
+
   const [list, setList] = useState([]);
+
+  useEffect(() => {
+    const saveditems = JSON.parse(localStorage.getItem('items'));
+    if (saveditems) {
+      setList(saveditems.slice());
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('items', JSON.stringify(list));
+  }, [list]);
+
+
   const [incomplete, setIncomplete] = useState([]);
   const { handleChange, handleSubmit } = useForm(addItem, defaultValues);
 

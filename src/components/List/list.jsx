@@ -1,18 +1,30 @@
-import { useContext } from "react";
+
 import "./list.scss";
-import { SettingsContext } from "../context/SettingsProvider.jsx";
+
+// import { SettingsProvider } from "../context/SettingsProvider.jsx";
+import { useSettings } from '../context/SettingsProvider';
+
+
 import { Paper, Text, Group, CloseButton, Checkbox } from "@mantine/core";
 function List({ items, currentPage, deleteItem, toggleComplete }) {
-  const settings = useContext(SettingsContext);
+
+
+  const { settings, updateSettings } = useSettings();
+
+  console.log(settings)
+
+  // const settings = useContext(SettingsProvider);
 
   settings.hideCompleted? items = items.filter((item) => !item.complete) : ''
 
-  items = items.sort((a, b) => b[settings.sortWord] - a[settings.sortWord]);
+  items = items.sort((a, b) => b[settings.sortField] - a[settings.sortField]);
 
   const itemsToDisplay = items.slice(
     (currentPage - 1) * settings.displayItems,
     currentPage * settings.displayItems
   );
+
+
 
   return (
     <>
@@ -23,7 +35,7 @@ function List({ items, currentPage, deleteItem, toggleComplete }) {
             <Paper withBorder p='lg' radius='md' shadow='md'>
               <Group position='apart' mb='xs'>
                 <Text fz='lg' fw={500}>
-                  <span className='pendindg'>Pending</span>
+                 {item.complete? <span className='copmleted'>Copmleted</span> : <span className='pendindg'>Pending</span>} 
                   {item?.assignee?.toUpperCase()}
                 </Text>
                 <CloseButton
@@ -41,7 +53,7 @@ function List({ items, currentPage, deleteItem, toggleComplete }) {
                   Difficulty : {item.difficulty}
                 </Text>
 
-                <Checkbox
+                {!item.complete?<Checkbox
                   key={item.id}
                   label='completed'
                   color='teal'
@@ -50,7 +62,7 @@ function List({ items, currentPage, deleteItem, toggleComplete }) {
                       toggleComplete(item.id);
                     }, 200)
                   }
-                />
+                /> : "" }
               </Group>
             </Paper>
           </section>
