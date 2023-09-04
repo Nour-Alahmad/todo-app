@@ -1,37 +1,78 @@
-import React, { useState } from 'react';
-import { Card, Grid, TextInput, Switch, Button } from '@mantine/core';
+// SettingsPage.js
+import  { useState } from 'react';
 import { useSettings } from '../context/SettingsProvider';
+import { Button, Switch } from '@mantine/core';
+
+import "./settings.scss";
 
 function SettingsPage() {
-  const [settings, setSettings] = useSettings();
+  const { settings, updateSettings } = useSettings();
+
   const [displayItems, setDisplayItems] = useState(settings.displayItems);
   const [hideCompleted, setHideCompleted] = useState(settings.hideCompleted);
 
-  const handleSaveSettings = () => {
-    setSettings({
-      displayItems: displayItems,
-      hideCompleted: hideCompleted,
-    });
+  const handleSaveSettings = (e) => {
+   e.preventDefault();
+    const newSettings = {
+      ...settings,
+      displayItems,
+      hideCompleted,
+    };
+    updateSettings(newSettings);
   };
 
   return (
-    <Card shadow="sm" style={{ padding: '16px' }}>
-      <h2>Settings</h2>
-      <Grid gutter="md">
-        <TextInput
-          label="Display Items"
+    <div className='settings-body'>
+
+<header className='settings-header'>
+          <h1> ⚙️Manage Settings</h1>
+        </header>
+        <section className='settings-sections'>
+          <form onSubmit={handleSaveSettings} className='settings-form'>
+            <h2>Update Settings</h2>
+   <label>
+            
+              
+              <Switch     labelPosition="left"  label={<span>Hide Completed Items:</span> }  size="md"  onChange={(e) => setHideCompleted(e.target.checked)}/>
+
+            </label>
+
+            <label>
+              <span> Display Items:</span>
+              <br />
+              <input
           type="number"
           value={displayItems}
-          onChange={(value) => setDisplayItems(value)}
+          onChange={(e) => setDisplayItems(Number(e.target.value))}
         />
-        <Switch
-          label="Hide Completed Items"
-          checked={hideCompleted}
-          onChange={(value) => setHideCompleted(value)}
-        />
-        <Button onClick={handleSaveSettings}>Save Settings</Button>
-      </Grid>
-    </Card>
+            </label>
+   <label>
+              <span>Sotr Keyword</span>
+              <br />
+              <input
+                onChange={()=>{}}
+                name='Keyword'
+                type='text'
+                placeholder='difficulty'
+              />
+            </label>
+         
+            <label>
+              <Button type='submit'>Save</Button>
+            </label>
+         
+
+          </form>
+
+
+
+        </section>
+
+        <section>
+
+        </section>
+
+    </div>
   );
 }
 

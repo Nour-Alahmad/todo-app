@@ -1,5 +1,5 @@
-import React from 'react';
-import { Route, Routes,Link } from "react-router-dom";
+
+import { Route, Routes, } from "react-router-dom";
 
 import { SettingsProvider } from './components/context/SettingsProvider';
 import ToDo from './components/todo/todo'; // Your existing ToDo component
@@ -9,11 +9,11 @@ function App() {
   return (
     <SettingsProvider>
         <Routes>
-     
-
+            <Route path='/' element={<ToDo />} />
        
-          <Route path="/" exact component={ToDo} />
-          <Route path="/settings" component={SettingsPage} />
+            <Route path='/settings' element={<SettingsPage />} />
+       
+
        
       </Routes>
     </SettingsProvider>

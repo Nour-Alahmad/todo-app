@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+// SettingsContext.js
+import { createContext, useContext, useState, useEffect } from 'react';
 
 const SettingsContext = createContext();
 
@@ -6,6 +7,7 @@ export function SettingsProvider({ children }) {
   const defaultSettings = {
     displayItems: 5,
     hideCompleted: true,
+    sortField: 'difficulty',
   };
 
   const [settings, setSettings] = useState(defaultSettings);
@@ -21,8 +23,12 @@ export function SettingsProvider({ children }) {
     localStorage.setItem('settings', JSON.stringify(settings));
   }, [settings]);
 
+  const updateSettings = (newSettings) => {
+    setSettings(newSettings);
+  };
+
   return (
-    <SettingsContext.Provider value={[settings, setSettings]}>
+    <SettingsContext.Provider value={{ settings, updateSettings }}>
       {children}
     </SettingsContext.Provider>
   );
