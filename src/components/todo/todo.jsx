@@ -7,6 +7,7 @@ import { Button, Pagination } from "@mantine/core";
 
 // import { SettingsProvider } from "../context/SettingsProvider.jsx";
 import { useSettings } from '../context/SettingsProvider';
+import Navbar from "../Navbar/navbar.jsx";
 
 
 const ToDo = () => {
@@ -76,6 +77,7 @@ const ToDo = () => {
 
   return (
     <>
+    <Navbar/>
       <section className='todo-body'>
         <header className='todo-header'>
           <h1>To Do List: {incomplete} items pending</h1>
