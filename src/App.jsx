@@ -11,10 +11,7 @@ function App() {
         <Routes>
             <Route path='/' element={<ToDo />} />
        
-            <Route path='/settings' element={<SettingsPage />} />
-       
-
-       
+            <Route path='/settings' element={<SettingsPage />} />       
       </Routes>
     </SettingsProvider>
   );
